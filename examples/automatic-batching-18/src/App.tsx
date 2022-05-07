@@ -4,7 +4,7 @@ function App() {
   const [count, setCount] = useState(0);
   const [inc, setInc] = useState<number | undefined>();
 
-  function onClick() {
+  function handleClick() {
     setInc((c) => {
       if (c === undefined) return 1;
       return c + 1;
@@ -30,7 +30,7 @@ function App() {
       <div className="text-xl pb-2">Count: {count}</div>
       <button
         className="bg-red-800 text-white px-3 py-2 rounded-lg"
-        onClick={onClick}
+        onClick={handleClick}
       >
         Increment
       </button>
