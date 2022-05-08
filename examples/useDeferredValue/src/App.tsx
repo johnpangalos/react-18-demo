@@ -1,4 +1,10 @@
-import { useState, useTransition, ChangeEvent, Fragment } from "react";
+import {
+  useState,
+  useTransition,
+  ChangeEvent,
+  Fragment,
+  useDeferredValue,
+} from "react";
 import Loading from "./Loading";
 import { useFetchMovies } from "./hooks";
 
@@ -16,6 +22,8 @@ function App() {
       setHighlight(value);
     });
   }
+
+  const deferredValue = useDeferredValue(highlight);
 
   return (
     <div>
@@ -46,7 +54,7 @@ function App() {
                     {movies?.items.map(({ title, id, imDbRating, image }) => {
                       const index = title
                         .toLowerCase()
-                        .indexOf(highlight.toLowerCase());
+                        .indexOf(deferredValue.toLowerCase());
                       if (index === -1) return;
 
                       return (
@@ -59,10 +67,10 @@ function App() {
                                   <span className="bg-red-800 text-white">
                                     {title.slice(
                                       index,
-                                      index + highlight.length
+                                      index + deferredValue.length
                                     )}
                                   </span>
-                                  {title.slice(index + highlight.length)}
+                                  {title.slice(index + deferredValue.length)}
                                 </p>
                                 <div className="ml-2 flex-shrink-0 flex">
                                   <p className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
